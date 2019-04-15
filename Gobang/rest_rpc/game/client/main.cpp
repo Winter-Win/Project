@@ -42,6 +42,7 @@ int main(int argc, char* argv[])
             break;
         case 2:
             Register(ip, port, name, passwd, id);
+            cout << id << endl;
             break;
         case 3:
             cout << "游戏退出！" << endl;
