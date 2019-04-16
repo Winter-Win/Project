@@ -21,6 +21,11 @@ public:
         return pm.InsertPlayer(name, passwd);
     }
 
+    uint32_t Login(uint32_t &id, string &passwd)
+    {
+        return pm.SearchPlayer(id, passwd);
+    }
+
     ~Hall()
     {
     }

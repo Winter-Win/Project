@@ -44,7 +44,65 @@ uint32_t Register(const string &ip, const int &port, string &name, string &passw
     return id;
 }
 
-int Login()
+uint32_t Login(const string &ip, int &port)
 {
-    return 0;
+    uint32_t id;
+    string passwd;
+
+    cout << "请输入你的登录ID: ";
+    cin >> id;
+    cout << "请输入你的登录密码: ";
+    cin >> passwd;
+
+    uint32_t result = 0;
+	try
+    {
+		rpc_client client(ip, port);
+    	bool r = client.connect();
+    	if (!r)
+        {
+		    cout << "connect timeout" << endl;
+		    return 2;
+    	}
+        result = client.call<uint32_t>("RpcLogin", id, passwd);
+    }
+    catch (const std::exception& e)
+    {
+		std::cout << e.what() << std::endl;
+    }
+
+    return result;
+}
+
+void Game()
+{
+    int select = 0;
+    volatile int quit = 0;
+    while(!quit)
+    {
+        cout << "#########################################" << endl;
+        cout << "####    1. 匹配           2. 退出    ####" << endl;
+        cout << "#########################################" << endl;
+        cout << "请选择: ";
+        cin >> select;
+        switch(select)
+        {
+            case 1:
+                {
+                    if(Match())
+                    {
+
+                    }
+                    else
+                    {
+                        cout << "匹配失败，请重试！" << endl;
+                    }
+                }
+                break;
+            case 2:
+                break;
+            default:
+                cout << "选择错误，请重新输入！" << endl;
+        }
+    }
 }

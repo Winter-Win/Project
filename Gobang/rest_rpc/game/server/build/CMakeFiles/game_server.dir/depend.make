@@ -530,6 +530,7 @@ CMakeFiles/game_server.dir/main.cpp.o: ../../../third/msgpack/include/msgpack/zo
 CMakeFiles/game_server.dir/main.cpp.o: ../../../third/msgpack/include/msgpack/zone.hpp
 CMakeFiles/game_server.dir/main.cpp.o: ../../../third/msgpack/include/msgpack/zone_decl.hpp
 CMakeFiles/game_server.dir/main.cpp.o: ../Hall.hpp
+CMakeFiles/game_server.dir/main.cpp.o: ../Log.hpp
 CMakeFiles/game_server.dir/main.cpp.o: ../Player.hpp
 CMakeFiles/game_server.dir/main.cpp.o: ../PlayerManager.hpp
 CMakeFiles/game_server.dir/main.cpp.o: ../main.cpp

@@ -41,7 +41,17 @@ public:
         st = OFFLINE;
     }
 
-    int Rate()
+    const string& Passwd()
+    {
+        return passwd;
+    }
+
+    void Online()
+    {
+        st = ONLINE;
+    }
+
+    int Rate() //胜率
     {
         int total = win + lose;
         if(total == 0)

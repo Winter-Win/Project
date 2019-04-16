@@ -38,11 +38,25 @@ int main(int argc, char* argv[])
         switch(select)
         {
         case 1:
-            Login();
+            {
+                uint32_t result = Login(ip, port);
+                if(result == id)
+                {
+                    cout << "登录成功，请开始匹配游戏吧！" << endl;
+                    Game();
+                }
+                else
+                {
+                    cout << "登录失败，退出码: " << result << endl;
+                }
+            }
             break;
         case 2:
-            Register(ip, port, name, passwd, id);
-            cout << id << endl;
+            {
+                Register(ip, port, name, passwd, id);
+                cout << "注册成功，请务必记住你的登录ID : [" << id << " ]" << endl;
+                cout << "请直接进行登录！" << endl;
+            }
             break;
         case 3:
             cout << "游戏退出！" << endl;

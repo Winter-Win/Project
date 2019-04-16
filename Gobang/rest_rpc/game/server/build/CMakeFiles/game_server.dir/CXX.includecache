@@ -4988,6 +4988,14 @@ string
 PlayerManager.hpp
 /home/win/code/Linux/Gobang/rest_rpc/game/server/PlayerManager.hpp
 
+/home/win/code/Linux/Gobang/rest_rpc/game/server/Log.hpp
+iostream
+-
+vector
+-
+string
+-
+
 /home/win/code/Linux/Gobang/rest_rpc/game/server/Player.hpp
 iostream
 -
@@ -4997,6 +5005,14 @@ string
 /home/win/code/Linux/Gobang/rest_rpc/game/server/PlayerManager.hpp
 iostream
 -
+string
+-
+unordered_map
+-
+utility
+-
+Log.hpp
+/home/win/code/Linux/Gobang/rest_rpc/game/server/Log.hpp
 Player.hpp
 /home/win/code/Linux/Gobang/rest_rpc/game/server/Player.hpp
 

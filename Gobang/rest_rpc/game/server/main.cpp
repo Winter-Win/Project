@@ -79,10 +79,20 @@ uint32_t RpcRegister(connection* conn, string name, string passwd)
     return GameHall.Register(name, passwd);
 }
 
+uint32_t RpcLogin(connection* conn, uint32_t id, string passwd)
+{
+    return GameHall.Login(id, passwd);
+}
+
 int main() {
 	rpc_server server(9000, 4);
+    LOG(INFO, "Init Server .... done");
 
 	server.register_handler("RpcRegister", RpcRegister);
+	server.register_handler("RpcLogin", RpcLogin);
+
+    LOG(INFO, "Register All Function .... done");
+    LOG(INFO, "Server start .... done");
 
 //	dummy d;
 //	server.register_handler("add", &dummy::add, &d);

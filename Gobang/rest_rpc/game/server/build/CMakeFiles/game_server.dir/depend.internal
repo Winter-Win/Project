@@ -531,6 +531,7 @@ CMakeFiles/game_server.dir/main.cpp.o
  ../../../third/msgpack/include/msgpack/zone.hpp
  ../../../third/msgpack/include/msgpack/zone_decl.hpp
  /home/win/code/Linux/Gobang/rest_rpc/game/server/Hall.hpp
+ /home/win/code/Linux/Gobang/rest_rpc/game/server/Log.hpp
  /home/win/code/Linux/Gobang/rest_rpc/game/server/Player.hpp
  /home/win/code/Linux/Gobang/rest_rpc/game/server/PlayerManager.hpp
  /home/win/code/Linux/Gobang/rest_rpc/game/server/main.cpp
