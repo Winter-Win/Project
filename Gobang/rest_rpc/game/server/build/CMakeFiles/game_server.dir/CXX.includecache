@@ -4985,6 +4985,10 @@ iostream
 -
 string
 -
+vector
+-
+pthread.h
+-
 PlayerManager.hpp
 /home/win/code/Linux/Gobang/rest_rpc/game/server/PlayerManager.hpp
 
@@ -5000,6 +5004,8 @@ string
 iostream
 -
 string
+-
+pthread.h
 -
 
 /home/win/code/Linux/Gobang/rest_rpc/game/server/PlayerManager.hpp

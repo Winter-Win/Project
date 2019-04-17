@@ -84,12 +84,19 @@ uint32_t RpcLogin(connection* conn, uint32_t id, string passwd)
     return GameHall.Login(id, passwd);
 }
 
+bool RpcMatchAndWait(connection* conn, uint32_t id)
+{
+    return GameHall.PushIdInMatchPool(id); // 阻塞式的
+}
+
 int main() {
+    GameHall.InitHall();
 	rpc_server server(9000, 4);
     LOG(INFO, "Init Server .... done");
 
 	server.register_handler("RpcRegister", RpcRegister);
 	server.register_handler("RpcLogin", RpcLogin);
+	server.register_handler("RpcMatchAndWait", RpcMatchAndWait);
 
     LOG(INFO, "Register All Function .... done");
     LOG(INFO, "Server start .... done");

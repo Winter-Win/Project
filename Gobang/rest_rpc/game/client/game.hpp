@@ -33,7 +33,7 @@ uint32_t Register(const string &ip, const int &port, string &name, string &passw
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 2;
+		    return 3;
     	}
         id = client.call<uint32_t>("RpcRegister", name, passwd);
     }
@@ -62,7 +62,7 @@ uint32_t Login(const string &ip, int &port)
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 2;
+		    return 3;
     	}
         result = client.call<uint32_t>("RpcLogin", id, passwd);
     }
@@ -74,10 +74,34 @@ uint32_t Login(const string &ip, int &port)
     return result;
 }
 
-void Game()
+bool Match(uint32_t &id, const string &ip, uint32_t &port)
+{
+	try
+    {
+		rpc_client client(ip, port);
+    	bool r = client.connect();
+    	if (!r)
+        {
+		    cout << "connect timeout" << endl;
+		    return 3;
+    	}
+        return client.call<bool>("RpcMatchAndWait", id);
+    }
+    catch (const std::exception& e)
+    {
+		std::cout << e.what() << std::endl;
+    }
+}
+
+void PlayGame()
+{
+
+}
+
+void Game(uint32_t &id)
 {
     int select = 0;
-    volatile int quit = 0;
+    volatile bool quit = false;
     while(!quit)
     {
         cout << "#########################################" << endl;
@@ -89,9 +113,9 @@ void Game()
         {
             case 1:
                 {
-                    if(Match())
+                    if(Match(id)) //匹配
                     {
-
+                        PlayGame();
                     }
                     else
                     {
@@ -100,9 +124,11 @@ void Game()
                 }
                 break;
             case 2:
+                quit = true;
                 break;
             default:
                 cout << "选择错误，请重新输入！" << endl;
+                break;
         }
     }
 }

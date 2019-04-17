@@ -57,6 +57,37 @@ public:
         LOG(INFO, "用户登录成功...");
         return id;
     }
+    
+    void SignalPlayer(uint32_t &one, uint32_t &two)
+    {
+        player_set[one].Signal();
+        player_set[two].Signal();
+    }
+
+    void SetPlayStatus(uint32_t &one, uint32_t &two)
+    {
+        player_set[one].Playing();
+        player_set[two].Playing();
+    }
+
+    void SetMatching(uint32_t &id)
+    {
+        player_set[id].Matching();
+    }
+
+    bool PlayerWait(uint32_t &id)
+    {
+        if(ETIMEDOUT == player_set[id].Wait())
+        {
+            return false;
+        }
+        return true;
+    }
+
+    int GetRate(uint32_t &id)
+    {
+        return 0;
+    }
 
     ~PlayerManager()
     {

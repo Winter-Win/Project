@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
                 if(result == id)
                 {
                     cout << "登录成功，请开始匹配游戏吧！" << endl;
-                    Game();
+                    Game(id);
                 }
                 else
                 {

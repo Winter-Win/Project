@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <string>
+#include <pthread.h>
+
+#define TIMEOUT 20
 
 using namespace std;
 
@@ -27,6 +30,9 @@ private: //相当于数据库，以及表
 
     status_t st;
 
+    pthread_mutex_t lock;
+    pthread_cond_t cond;
+
 public:
     Player()
     {
@@ -39,6 +45,9 @@ public:
         lose = 0;
         tie = 0;
         st = OFFLINE;
+
+        pthread_mutex_init(&lock, NULL);
+        pthread_cond_init(&cond, NULL);
     }
 
     const string& Passwd()
@@ -51,6 +60,16 @@ public:
         st = ONLINE;
     }
 
+    void Matching()
+    {
+        st = MATCHING;
+    }
+
+    void Playing()
+    {
+        st = PLAYING;
+    }
+
     int Rate() //胜率
     {
         int total = win + lose;
@@ -61,8 +80,23 @@ public:
         return win*100/total;
     }
 
+    int Wait()
+    {
+        struct timespec ts;
+        clock_gettime(CLOCK_REALTIME, &ts);
+        ts.tv_sec += TIMEOUT;
+        return pthread_cond_timedwait(&cond, &lock, &ts);
+    }
+
+    void Signal()
+    {
+        pthread_cond_signal(&cond);
+    }
+
     ~Player()
     {
+        pthread_mutex_destroy(&lock);
+        pthread_cond_destroy(&cond);
     }
 
 
