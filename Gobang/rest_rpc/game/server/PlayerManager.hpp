@@ -43,7 +43,7 @@ public:
         auto iter = player_set.find(id);
         if(iter == player_set.end())
         {
-            LOG(WARNING, "查找拥护呼失败...");
+            LOG(WARNING, "查找用户失败...");
             return 1;
         }
 
@@ -58,11 +58,11 @@ public:
         return id;
     }
     
-    void SignalPlayer(uint32_t &one, uint32_t &two)
-    {
-        player_set[one].Signal();
-        player_set[two].Signal();
-    }
+//    void SignalPlayer(uint32_t &one, uint32_t &two)
+//    {
+//        player_set[one].Signal();
+//        player_set[two].Signal();
+//    }
 
     void SetPlayStatus(uint32_t &one, uint32_t &two)
     {
@@ -75,18 +75,25 @@ public:
         player_set[id].Matching();
     }
 
-    bool PlayerWait(uint32_t &id)
-    {
-        if(ETIMEDOUT == player_set[id].Wait())
-        {
-            return false;
-        }
-        return true;
-    }
+//    bool PlayerWait(uint32_t &id)
+//    {
+//        if(ETIMEDOUT == player_set[id].Wait())
+//        {
+//            cout << "Play time out..." << endl;
+//            return false;
+//        }
+//        cout << "Play wakeup..." << endl;
+//        return true;
+//    }
 
     int GetRate(uint32_t &id)
     {
-        return 0;
+        return player_set[id].Rate();
+    }
+
+    int Ready(uint32_t &id)
+    {
+        return player_set[id].Status() == PLAYING ? true : false;
     }
 
     ~PlayerManager()

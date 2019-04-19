@@ -10,7 +10,7 @@ using namespace std;
 
 typedef enum
 {
-    OFFLINE,
+    OFFLINE = 0,
     ONLINE,
     MATCHING,
     PLAYING,
@@ -30,8 +30,8 @@ private: //相当于数据库，以及表
 
     status_t st;
 
-    pthread_mutex_t lock;
-    pthread_cond_t cond;
+    //pthread_mutex_t lock;
+    //pthread_cond_t cond;
 
 public:
     Player()
@@ -46,8 +46,8 @@ public:
         tie = 0;
         st = OFFLINE;
 
-        pthread_mutex_init(&lock, NULL);
-        pthread_cond_init(&cond, NULL);
+        //pthread_mutex_init(&lock, NULL);
+        //pthread_cond_init(&cond, NULL);
     }
 
     const string& Passwd()
@@ -80,23 +80,28 @@ public:
         return win*100/total;
     }
 
-    int Wait()
+    int Status()
     {
-        struct timespec ts;
-        clock_gettime(CLOCK_REALTIME, &ts);
-        ts.tv_sec += TIMEOUT;
-        return pthread_cond_timedwait(&cond, &lock, &ts);
+        return st;
     }
 
-    void Signal()
-    {
-        pthread_cond_signal(&cond);
-    }
+    //int Wait()
+    //{
+    //    struct timespec ts;
+    //    clock_gettime(CLOCK_REALTIME, &ts);
+    //    ts.tv_sec += TIMEOUT;
+    //    return pthread_cond_timedwait(&cond, &lock, &ts);
+    //}
+
+    //void Signal()
+    //{
+    //    pthread_cond_signal(&cond);
+    //}
 
     ~Player()
     {
-        pthread_mutex_destroy(&lock);
-        pthread_cond_destroy(&cond);
+    //    pthread_mutex_destroy(&lock);
+    //    pthread_cond_destroy(&cond);
     }
 
 

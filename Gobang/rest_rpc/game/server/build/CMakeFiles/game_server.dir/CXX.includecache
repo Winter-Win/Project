@@ -4991,6 +4991,8 @@ pthread.h
 -
 PlayerManager.hpp
 /home/win/code/Linux/Gobang/rest_rpc/game/server/PlayerManager.hpp
+RoomManager.hpp
+/home/win/code/Linux/Gobang/rest_rpc/game/server/RoomManager.hpp
 
 /home/win/code/Linux/Gobang/rest_rpc/game/server/Log.hpp
 iostream
@@ -5021,6 +5023,18 @@ Log.hpp
 /home/win/code/Linux/Gobang/rest_rpc/game/server/Log.hpp
 Player.hpp
 /home/win/code/Linux/Gobang/rest_rpc/game/server/Player.hpp
+
+/home/win/code/Linux/Gobang/rest_rpc/game/server/Room.hpp
+iostream
+-
+
+/home/win/code/Linux/Gobang/rest_rpc/game/server/RoomManager.hpp
+iostream
+-
+unordered_map
+-
+Room.hpp
+/home/win/code/Linux/Gobang/rest_rpc/game/server/Room.hpp
 
 /home/win/code/Linux/Gobang/rest_rpc/game/server/main.cpp
 rpc_server.h

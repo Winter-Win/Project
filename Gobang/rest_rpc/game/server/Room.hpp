@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-#define BLACK "X"
-#define WHITE "O"
+#define BLACK 'X'
+#define WHITE 'O'
+#define SIZE 5
 
 class Room
 {
@@ -20,11 +21,11 @@ private:
 public:
     Room(uint32_t &id1, uint32_t &id2):one(id1),two(id2)
     {
-        piece[0] = "X";
-        piece[1] = "O";
-        memset(board, " ", sizeof(board));
-        result = "N";
-        pthread_mutex_init(&lock);
+        piece[0] = 'X';
+        piece[1] = 'O';
+        memset(board, ' ', sizeof(board));
+        result = 'N';
+        pthread_mutex_init(&lock, NULL);
     }
 
     ~Room()
@@ -32,4 +33,3 @@ public:
         pthread_mutex_destroy(&lock);
     }
 };
-            createRoom(play_one, play_two);

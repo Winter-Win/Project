@@ -89,17 +89,23 @@ bool RpcMatchAndWait(connection* conn, uint32_t id)
     return GameHall.PushIdInMatchPool(id); // 阻塞式的
 }
 
+int RpcPlayerReady(connection* conn, uint32_t id)
+{
+    return GameHall.IsPlayerReady(id);
+}
+
 int main() {
-    GameHall.InitHall();
 	rpc_server server(9000, 4);
     LOG(INFO, "Init Server .... done");
 
 	server.register_handler("RpcRegister", RpcRegister);
 	server.register_handler("RpcLogin", RpcLogin);
 	server.register_handler("RpcMatchAndWait", RpcMatchAndWait);
+	server.register_handler("RpcPlayerReady", RpcPlayerReady);
 
     LOG(INFO, "Register All Function .... done");
     LOG(INFO, "Server start .... done");
+    GameHall.InitHall();
 
 //	dummy d;
 //	server.register_handler("add", &dummy::add, &d);

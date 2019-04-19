@@ -533,5 +533,7 @@ CMakeFiles/game_server.dir/main.cpp.o: ../Hall.hpp
 CMakeFiles/game_server.dir/main.cpp.o: ../Log.hpp
 CMakeFiles/game_server.dir/main.cpp.o: ../Player.hpp
 CMakeFiles/game_server.dir/main.cpp.o: ../PlayerManager.hpp
+CMakeFiles/game_server.dir/main.cpp.o: ../Room.hpp
+CMakeFiles/game_server.dir/main.cpp.o: ../RoomManager.hpp
 CMakeFiles/game_server.dir/main.cpp.o: ../main.cpp
 

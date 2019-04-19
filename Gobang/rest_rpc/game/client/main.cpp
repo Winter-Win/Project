@@ -40,10 +40,11 @@ int main(int argc, char* argv[])
         case 1:
             {
                 uint32_t result = Login(ip, port);
-                if(result == id)
+                if(result >= 10000)
                 {
+                    id = result;
                     cout << "登录成功，请开始匹配游戏吧！" << endl;
-                    Game(id);
+                    Game(id, ip, port);
                 }
                 else
                 {

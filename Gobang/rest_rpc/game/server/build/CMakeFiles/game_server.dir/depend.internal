@@ -534,4 +534,6 @@ CMakeFiles/game_server.dir/main.cpp.o
  /home/win/code/Linux/Gobang/rest_rpc/game/server/Log.hpp
  /home/win/code/Linux/Gobang/rest_rpc/game/server/Player.hpp
  /home/win/code/Linux/Gobang/rest_rpc/game/server/PlayerManager.hpp
+ /home/win/code/Linux/Gobang/rest_rpc/game/server/Room.hpp
+ /home/win/code/Linux/Gobang/rest_rpc/game/server/RoomManager.hpp
  /home/win/code/Linux/Gobang/rest_rpc/game/server/main.cpp

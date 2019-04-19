@@ -74,7 +74,7 @@ uint32_t Login(const string &ip, int &port)
     return result;
 }
 
-bool Match(uint32_t &id, const string &ip, uint32_t &port)
+bool PushMatchPool(uint32_t &id, const string &ip, int &port)
 {
 	try
     {
@@ -93,12 +93,52 @@ bool Match(uint32_t &id, const string &ip, uint32_t &port)
     }
 }
 
-void PlayGame()
+int CheckReady(uint32_t &id, const string &ip, int &port)
 {
-
+	try
+    {
+		rpc_client client(ip, port);
+    	bool r = client.connect();
+    	if (!r)
+        {
+		    cout << "connect timeout" << endl;
+		    return 3;
+    	}
+        return client.call<int>("RpcPlayerReady", id);
+    }
+    catch (const std::exception& e)
+    {
+		std::cout << e.what() << std::endl;
+    }
 }
 
-void Game(uint32_t &id)
+bool Match(uint32_t &id, const string &ip, int port)
+{
+    PushMatchPool(id, ip, port);
+    while(1)
+    {
+        int result = CheckReady(id, ip, port);
+        if(result == 3)
+        {
+            return true;
+        }
+        else if(result == 1)
+        {
+            return false;
+        }
+        else
+        {
+            sleep(1);
+        }
+    }
+}
+
+void PlayGame()
+{
+    cout << "匹配成功，请开始游戏..." << endl;
+}
+
+void Game(uint32_t &id, const string &ip, int &port)
 {
     int select = 0;
     volatile bool quit = false;
@@ -113,7 +153,7 @@ void Game(uint32_t &id)
         {
             case 1:
                 {
-                    if(Match(id)) //匹配
+                    if(Match(id, ip, port)) //匹配
                     {
                         PlayGame();
                     }
