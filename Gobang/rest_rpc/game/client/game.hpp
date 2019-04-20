@@ -118,6 +118,7 @@ bool Match(uint32_t &id, const string &ip, int port)
     while(1)
     {
         int result = CheckReady(id, ip, port);
+        cout << "check: " << result << endl;
         if(result == 3)
         {
             return true;

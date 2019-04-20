@@ -93,7 +93,7 @@ public:
 
     int Ready(uint32_t &id)
     {
-        return player_set[id].Status() == PLAYING ? true : false;
+        return player_set[id].Status();
     }
 
     ~PlayerManager()

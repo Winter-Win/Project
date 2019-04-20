@@ -92,6 +92,7 @@ public:
         LOG(INFO, "将用户放进匹配池...");
         pm.SetMatching(id);
         int rate = pm.GetRate(id);
+        cout << "rate: " << rate << endl;
         
         LockMatchPool();
 
@@ -163,7 +164,7 @@ public:
 
             int num = id_list.size();
             num &= (~1);
-            for(auto i = 0; i <= num; i+=1)
+            for(auto i = 0; i <= num; i+=2)
             {
                 uint32_t play_one = id_list[i];
                 uint32_t play_two = id_list[i+1];
