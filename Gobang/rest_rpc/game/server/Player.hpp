@@ -29,6 +29,7 @@ private: //相当于数据库，以及表
     int tie; //平局
 
     status_t st;
+    uint32_t room_id;
 
     //pthread_mutex_t lock;
     //pthread_cond_t cond;
@@ -83,6 +84,16 @@ public:
     int Status()
     {
         return st;
+    }
+
+    uint32_t Room()
+    {
+        return room_id;
+    }
+
+    void SetRoom(uint32_t &room_id_)
+    {
+        room_id = room_id_;
     }
 
     //int Wait()

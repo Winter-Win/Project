@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <unordered_map>
 #include "Room.hpp"
 
@@ -17,11 +18,22 @@ public:
     {
     }
 
-    void CreateRoom(uint32_t &one, uint32_t &two)
+    uint32_t CreateRoom(uint32_t &one, uint32_t &two)
     {
         Room r(one,two);
         uint32_t id = assign_id++;
         room_set.insert({id, r});
+        return id;
+    }
+
+    void GetBoard(uint32_t &room_id, string &_board)
+    {
+        room_set[room_id].Board(_board);
+    }
+
+    char GetPlayerPiece(uint32_t &room_id, uint32_t &id)
+    {
+        return room_set[room_id].Piece(id);
     }
 
     ~RoomManager()

@@ -94,6 +94,21 @@ int RpcPlayerReady(connection* conn, uint32_t id)
     return GameHall.IsPlayerReady(id);
 }
 
+string RpcBoard(connection* conn, uint32_t room_id)
+{
+    return GameHall.GetPlayerBoard(room_id);
+}
+
+uint32_t RpcPlayerRoomId(connection* conn, uint32_t id)
+{
+    return GameHall.GetPlayerRoomId(id);
+}
+
+char RpcPlayerPiece(connection* conn, uint32_t room_id, uint32_t id)
+{
+    return GameHall.GetPlayerPiece(room_id, id);
+}
+
 int main() {
 	rpc_server server(9000, 4);
     LOG(INFO, "Init Server .... done");
@@ -102,6 +117,9 @@ int main() {
 	server.register_handler("RpcLogin", RpcLogin);
 	server.register_handler("RpcMatchAndWait", RpcMatchAndWait);
 	server.register_handler("RpcPlayerReady", RpcPlayerReady);
+	server.register_handler("RpcPlayerRoomId", RpcPlayerRoomId);
+	server.register_handler("RpcPlayerPiece", RpcPlayerPiece);
+	server.register_handler("RpcBoard", RpcBoard);
 
     LOG(INFO, "Register All Function .... done");
     LOG(INFO, "Server start .... done");

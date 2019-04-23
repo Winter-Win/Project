@@ -70,6 +70,12 @@ public:
         player_set[two].Playing();
     }
 
+    void SetPlayRoom(uint32_t &room_id, uint32_t &one, uint32_t two)
+    {
+        player_set[one].SetRoom(room_id);
+        player_set[two].SetRoom(room_id);
+    }
+
     void SetMatching(uint32_t &id)
     {
         player_set[id].Matching();
@@ -85,6 +91,12 @@ public:
 //        cout << "Play wakeup..." << endl;
 //        return true;
 //    }
+//
+
+    uint32_t GetPlayerRoomId(uint32_t &id)
+    {
+        player_set[id].Room();
+    }
 
     int GetRate(uint32_t &id)
     {

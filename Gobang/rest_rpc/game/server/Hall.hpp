@@ -115,7 +115,7 @@ public:
         //return pm.PlayerWait(id); //进行等待
     }
 
-    void MatchPoolClear()
+    void MatchPoolClear() //清空匹配池
     {
         LOG(INFO, "匹配池被清空...");
         for(auto i = MATCH_LEVEL-1; i >= 0; i--)
@@ -138,7 +138,8 @@ public:
     void GamePrepare(uint32_t &one, uint32_t &two)
     {
         pm.SetPlayStatus(one, two);
-        rm.CreateRoom(one, two);
+        uint32_t room_id = rm.CreateRoom(one, two);
+        pm.SetPlayRoom(room_id, one, two);
         //pm.SignalPlayer(one, two);
 
     }
@@ -175,6 +176,24 @@ public:
 
             hp->UnlockMatchPool();
         }
+    }
+
+    string GetPlayerBoard(uint32_t &room_id)
+    {
+        string board;
+        //uint32_t room_id = pm.GetPlayerRoomId(id);
+        rm.GetBoard(room_id, board);
+        return board;
+    }
+
+    uint32_t GetPlayerRoomId(uint32_t &id)
+    {
+        return pm.GetPlayerRoomId(id);
+    }
+
+    char GetPlayerPiece(uint32_t &room_id, uint32_t &id)
+    {
+        return rm.GetPlayerPiece(room_id, id);
     }
 
     void InitHall()
