@@ -184,7 +184,7 @@ char GetMyPiece(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
 		    cout << "connect timeout" << endl;
 		    return 3;
     	}
-        return client.call<char>("RpcPlayerPiece",room_id);
+        return client.call<char>("RpcPlayerPiece",room_id, id);
     }
     catch (const std::exception& e)
     {
@@ -196,13 +196,28 @@ void ShowBoard(string &board)
 {
     for(auto i = 0; i < board.size(); ++i)
     {
-        cout << '|' << board[i] << '|' << endl;
+        cout << board[i] << '|';
     }
+    cout << endl;
 }
 
-bool IsMyTurn()
+bool IsMyTurn(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
 {
-    return false;
+	try
+    {
+		rpc_client client(ip, port);
+    	bool r = client.connect();
+    	if (!r)
+        {
+		    cout << "connect timeout" << endl;
+		    return 3;
+    	}
+        return client.call<bool>("RpcIsMyTurn",room_id, id);
+    }
+    catch (const std::exception& e)
+    {
+		std::cout << e.what() << std::endl;
+    }
 }
 
 bool PosIsRight(int x, int y)
@@ -234,7 +249,7 @@ void PlayGame(uint32_t &id, const string &ip, int &port)
     {
         GetBoard(room_id, ip, port, board);
         ShowBoard(board);
-        if(!IsMyTurn())
+        if(!IsMyTurn(room_id, id, ip, port))
         {
             sleep(1);
             continue;

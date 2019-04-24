@@ -109,6 +109,11 @@ char RpcPlayerPiece(connection* conn, uint32_t room_id, uint32_t id)
     return GameHall.GetPlayerPiece(room_id, id);
 }
 
+bool RpcIsMyTurn(connection* conn, uint32_t room_id, uint32_t id)
+{
+    return GameHall.IsMyTurn(room_id, id);
+}
+
 int main() {
 	rpc_server server(9000, 4);
     LOG(INFO, "Init Server .... done");
@@ -120,6 +125,7 @@ int main() {
 	server.register_handler("RpcPlayerRoomId", RpcPlayerRoomId);
 	server.register_handler("RpcPlayerPiece", RpcPlayerPiece);
 	server.register_handler("RpcBoard", RpcBoard);
+	server.register_handler("RpcIsMyTurn", RpcIsMyTurn);
 
     LOG(INFO, "Register All Function .... done");
     LOG(INFO, "Server start .... done");

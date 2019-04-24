@@ -36,6 +36,11 @@ public:
         return room_set[room_id].Piece(id);
     }
 
+    bool IsMyTurn(uint32_t &room_id, uint32_t &id)
+    {
+        return room_set[room_id].IsMyTurn(id);
+    }
+
     ~RoomManager()
     {
     }

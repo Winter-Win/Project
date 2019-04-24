@@ -274,7 +274,7 @@ FATAL	Log.hpp	9;"	d
 GamePrepare	Hall.hpp	/^    void GamePrepare(uint32_t &one, uint32_t &two)$/;"	f	class:Hall
 GetAllMatchId	Hall.hpp	/^    void GetAllMatchId(vector<uint32_t> &id_list)$/;"	f	class:Hall
 GetBoard	RoomManager.hpp	/^    void GetBoard(uint32_t &room_id, string &_board)$/;"	f	class:RoomManager
-GetPlayerBoard	Hall.hpp	/^    char GetPlayerBoard(uint32_t &room_id)$/;"	f	class:Hall
+GetPlayerBoard	Hall.hpp	/^    string GetPlayerBoard(uint32_t &room_id)$/;"	f	class:Hall
 GetPlayerPiece	Hall.hpp	/^    char GetPlayerPiece(uint32_t &room_id, uint32_t &id)$/;"	f	class:Hall
 GetPlayerPiece	RoomManager.hpp	/^    char GetPlayerPiece(uint32_t &room_id, uint32_t &id)$/;"	f	class:RoomManager
 GetPlayerRoomId	Hall.hpp	/^    uint32_t GetPlayerRoomId(uint32_t &id)$/;"	f	class:Hall
@@ -289,6 +289,9 @@ INFO	Log.hpp	7;"	d
 IncMatchNum	Hall.hpp	/^    void IncMatchNum()$/;"	f	class:Hall
 InitHall	Hall.hpp	/^    void InitHall()$/;"	f	class:Hall
 InsertPlayer	PlayerManager.hpp	/^    uint32_t InsertPlayer(string &name, string &passwd)$/;"	f	class:PlayerManager
+IsMyTurn	Hall.hpp	/^    bool IsMyTurn(uint32_t &room_id, uint32_t &id)$/;"	f	class:Hall
+IsMyTurn	Room.hpp	/^    bool IsMyTurn(uint32_t &id)$/;"	f	class:Room
+IsMyTurn	RoomManager.hpp	/^    bool IsMyTurn(uint32_t &room_id, uint32_t &id)$/;"	f	class:RoomManager
 IsPlayerReady	Hall.hpp	/^    int IsPlayerReady(uint32_t &id)$/;"	f	class:Hall
 LOG	Log.hpp	20;"	d
 LockMatchPool	Hall.hpp	/^    void LockMatchPool()$/;"	f	class:Hall
@@ -375,7 +378,7 @@ PlayerManager	PlayerManager.hpp	/^class PlayerManager$/;"	c
 Playing	Player.hpp	/^    void Playing()$/;"	f	class:Player
 PushIdInMatchPool	Hall.hpp	/^    bool PushIdInMatchPool(uint32_t &id)$/;"	f	class:Hall
 RM	build/Makefile	/^RM = \/usr\/local\/bin\/cmake -E remove -f$/;"	m
-ROOM_ID	RoomManager.hpp	7;"	d
+ROOM_ID	RoomManager.hpp	8;"	d
 Rate	Player.hpp	/^    int Rate() \/\/胜率$/;"	f	class:Player
 Ready	PlayerManager.hpp	/^    int Ready(uint32_t &id)$/;"	f	class:PlayerManager
 Register	Hall.hpp	/^    uint32_t Register(string &name, string &passwd) \/\/注册方法$/;"	f	class:Hall
@@ -386,7 +389,8 @@ Room	Room.hpp	/^    Room(uint32_t &id1, uint32_t &id2):one(id1),two(id2)$/;"	f	c
 Room	Room.hpp	/^class Room$/;"	c
 RoomManager	RoomManager.hpp	/^    RoomManager():assign_id(ROOM_ID)$/;"	f	class:RoomManager
 RoomManager	RoomManager.hpp	/^class RoomManager$/;"	c
-RpcBoard	main.cpp	/^char RpcBoard(connection* conn, uint32_t room_id)$/;"	f
+RpcBoard	main.cpp	/^string RpcBoard(connection* conn, uint32_t room_id)$/;"	f
+RpcIsMyTurn	main.cpp	/^bool RpcIsMyTurn(connection* conn, uint32_t room_id, uint32_t id)$/;"	f
 RpcLogin	main.cpp	/^uint32_t RpcLogin(connection* conn, uint32_t id, string passwd)$/;"	f
 RpcMatchAndWait	main.cpp	/^bool RpcMatchAndWait(connection* conn, uint32_t id)$/;"	f
 RpcPlayerPiece	main.cpp	/^char RpcPlayerPiece(connection* conn, uint32_t room_id, uint32_t id)$/;"	f
@@ -422,7 +426,7 @@ SearchPlayer	PlayerManager.hpp	/^    uint32_t SearchPlayer(uint32_t &id, string&
 ServiceWait	Hall.hpp	/^    void ServiceWait()$/;"	f	class:Hall
 ServiceWakeup	Hall.hpp	/^    void ServiceWakeup()$/;"	f	class:Hall
 SetMatching	PlayerManager.hpp	/^    void SetMatching(uint32_t &id)$/;"	f	class:PlayerManager
-SetPlayRoom	PlayerManager.hpp	/^    void SetPlayRoom(uint32_t &room_id, uint32_t &one, uint32_t two)$/;"	f	class:PlayerManager
+SetPlayRoom	PlayerManager.hpp	/^    void SetPlayRoom(uint32_t &room_id, uint32_t &one, uint32_t &two)$/;"	f	class:PlayerManager
 SetPlayStatus	PlayerManager.hpp	/^    void SetPlayStatus(uint32_t &one, uint32_t &two)$/;"	f	class:PlayerManager
 SetRoom	Player.hpp	/^    void SetRoom(uint32_t &room_id_)$/;"	f	class:Player
 Status	Player.hpp	/^    int Status()$/;"	f	class:Player

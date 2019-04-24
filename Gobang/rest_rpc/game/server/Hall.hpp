@@ -196,6 +196,11 @@ public:
         return rm.GetPlayerPiece(room_id, id);
     }
 
+    bool IsMyTurn(uint32_t &room_id, uint32_t &id)
+    {
+        return rm.IsMyTurn(room_id, id);
+    }
+
     void InitHall()
     {
         pthread_mutex_init(&match_lock, NULL);

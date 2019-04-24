@@ -70,7 +70,7 @@ public:
         player_set[two].Playing();
     }
 
-    void SetPlayRoom(uint32_t &room_id, uint32_t &one, uint32_t two)
+    void SetPlayRoom(uint32_t &room_id, uint32_t &one, uint32_t &two)
     {
         player_set[one].SetRoom(room_id);
         player_set[two].SetRoom(room_id);

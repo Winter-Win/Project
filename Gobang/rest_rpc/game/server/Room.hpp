@@ -30,6 +30,7 @@ public:
         piece[1] = 'O';
         memset(board, ' ', sizeof(board));
         result = 'N';
+        current = one;
         pthread_mutex_init(&lock, NULL);
     }
 
@@ -37,7 +38,7 @@ public:
     {
         for(auto i = 0; i < SIZE; i++)
         {
-            for(auto j = 0; j < SIZE; i++)
+            for(auto j = 0; j < SIZE; j++)
             {
                 _board.push_back(board[i][j]);
             }
@@ -48,6 +49,11 @@ public:
     {
         int pos = (id == one ? 0 : 1);
         return piece[pos];
+    }
+
+    bool IsMyTurn(uint32_t &id)
+    {
+        return id == current ? true : false;
     }
 
     ~Room()
