@@ -272,6 +272,7 @@ DEFAULT_ID	PlayerManager.hpp	12;"	d
 EQUALS	build/Makefile	/^EQUALS = =$/;"	m
 FATAL	Log.hpp	9;"	d
 GamePrepare	Hall.hpp	/^    void GamePrepare(uint32_t &one, uint32_t &two)$/;"	f	class:Hall
+GameResult	Room.hpp	/^    char GameResult(uint32_t &id)$/;"	f	class:Room
 GetAllMatchId	Hall.hpp	/^    void GetAllMatchId(vector<uint32_t> &id_list)$/;"	f	class:Hall
 GetBoard	RoomManager.hpp	/^    void GetBoard(uint32_t &room_id, string &_board)$/;"	f	class:RoomManager
 GetPlayerBoard	Hall.hpp	/^    string GetPlayerBoard(uint32_t &room_id)$/;"	f	class:Hall
@@ -293,6 +294,9 @@ IsMyTurn	Hall.hpp	/^    bool IsMyTurn(uint32_t &room_id, uint32_t &id)$/;"	f	cla
 IsMyTurn	Room.hpp	/^    bool IsMyTurn(uint32_t &id)$/;"	f	class:Room
 IsMyTurn	RoomManager.hpp	/^    bool IsMyTurn(uint32_t &room_id, uint32_t &id)$/;"	f	class:RoomManager
 IsPlayerReady	Hall.hpp	/^    int IsPlayerReady(uint32_t &id)$/;"	f	class:Hall
+Judge	Hall.hpp	/^    char Judge(uint32_t &room_id, uint32_t &id)$/;"	f	class:Hall
+Judge	Room.hpp	/^    char Judge()$/;"	f	class:Room
+Judge	RoomManager.hpp	/^    char Judge(uint32_t &room_id, uint32_t &id)$/;"	f	class:RoomManager
 LOG	Log.hpp	20;"	d
 LockMatchPool	Hall.hpp	/^    void LockMatchPool()$/;"	f	class:Hall
 Login	Hall.hpp	/^    uint32_t Login(uint32_t &id, string &passwd) \/\/登录$/;"	f	class:Hall
@@ -391,6 +395,7 @@ RoomManager	RoomManager.hpp	/^    RoomManager():assign_id(ROOM_ID)$/;"	f	class:R
 RoomManager	RoomManager.hpp	/^class RoomManager$/;"	c
 RpcBoard	main.cpp	/^string RpcBoard(connection* conn, uint32_t room_id)$/;"	f
 RpcIsMyTurn	main.cpp	/^bool RpcIsMyTurn(connection* conn, uint32_t room_id, uint32_t id)$/;"	f
+RpcJudge	main.cpp	/^char RpcJudge(connection* conn, uint32_t room_id, uint32_t id)$/;"	f
 RpcLogin	main.cpp	/^uint32_t RpcLogin(connection* conn, uint32_t id, string passwd)$/;"	f
 RpcMatchAndWait	main.cpp	/^bool RpcMatchAndWait(connection* conn, uint32_t id)$/;"	f
 RpcPlayerPiece	main.cpp	/^char RpcPlayerPiece(connection* conn, uint32_t room_id, uint32_t id)$/;"	f
@@ -430,6 +435,10 @@ SetPlayRoom	PlayerManager.hpp	/^    void SetPlayRoom(uint32_t &room_id, uint32_t
 SetPlayStatus	PlayerManager.hpp	/^    void SetPlayStatus(uint32_t &one, uint32_t &two)$/;"	f	class:PlayerManager
 SetRoom	Player.hpp	/^    void SetRoom(uint32_t &room_id_)$/;"	f	class:Player
 Status	Player.hpp	/^    int Status()$/;"	f	class:Player
+Step	Hall.hpp	/^    void Step(uint32_t &room_id, uint32_t &id, int x, int y)$/;"	f	class:Hall
+Step	Room.hpp	/^    void Step(uint32_t &id, int &x, int &y)$/;"	f	class:Room
+Step	RoomManager.hpp	/^    void Step(uint32_t &room_id, uint32_t &id, int &x, int &y)$/;"	f	class:RoomManager
+Step	main.cpp	/^void Step(connection* conn, uint32_t room_id, uint32_t id, int x, int y)$/;"	f
 TIMEOUT	Player.hpp	7;"	d
 UnlockMatchPool	Hall.hpp	/^    void UnlockMatchPool()$/;"	f	class:Hall
 WARNING	Log.hpp	8;"	d
@@ -466,7 +475,7 @@ main	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	/^void main() {}$/;"	
 main	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^int main(int argc, char* argv[])$/;"	f
 main	build/CMakeFiles/feature_tests.c	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f
 main	build/CMakeFiles/feature_tests.cxx	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f
-main	main.cpp	/^int main() {$/;"	f
+main	main.cpp	/^int main()$/;"	f
 match_cond	Hall.hpp	/^    pthread_cond_t match_cond;$/;"	m	class:Hall
 match_lock	Hall.hpp	/^    pthread_mutex_t match_lock;$/;"	m	class:Hall
 match_num	Hall.hpp	/^    int match_num;$/;"	m	class:Hall

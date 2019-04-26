@@ -41,6 +41,16 @@ public:
         return room_set[room_id].IsMyTurn(id);
     }
 
+    void Step(uint32_t &room_id, uint32_t &id, int &x, int &y)
+    {
+        room_set[room_id].Step(id, x, y);
+    }
+
+    char Judge(uint32_t &room_id, uint32_t &id)
+    {
+        return room_set[room_id].GameResult(id);
+    }
+
     ~RoomManager()
     {
     }

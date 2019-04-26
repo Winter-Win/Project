@@ -30,7 +30,7 @@ public:
         piece[1] = 'O';
         memset(board, ' ', sizeof(board));
         result = 'N';
-        current = one;
+        current = one; //默认等于one
         pthread_mutex_init(&lock, NULL);
     }
 
@@ -54,6 +54,79 @@ public:
     bool IsMyTurn(uint32_t &id)
     {
         return id == current ? true : false;
+    }
+
+    void Step(uint32_t &id, int &x, int &y)
+    {
+        if(current == id)
+        {
+            int pos = (id == one ? 0 : 1); //piece[pos]
+            board[x][y] = piece[pos];
+            current = (id == one ? two : one);
+            result = Judge();
+        }
+    }
+
+    char GameResult(uint32_t &id)
+    {
+        return result;
+    }
+
+    char Judge()
+    {
+        int row = SIZE;
+        int col = SIZE;
+        //判断每一行
+        for(auto i = 0; i < row; ++i)
+        {
+            if(board[i][0] != ' ' && \
+               board[i][0] == board[i][1] && \
+               board[i][1] == board[i][2] && \
+               board[i][2] == board[i][3] && \
+               board[i][2] == board[i][4])
+            {
+                return board[i][0];
+            }
+        }
+        //判断每一列
+        for(auto i = 0; i < col; ++i)
+        {
+            if(board[0][i] != ' ' && \
+               board[0][i] == board[1][i] && \
+               board[1][i] == board[2][i] && \
+               board[2][i] == board[3][i] && \
+               board[3][i] == board[4][i])
+            {
+                return board[0][i];
+            }
+        }
+        //判断对角线
+        if(board[0][0] != ' ' && \
+           board[0][0] == board[1][1] && \
+           board[1][1] == board[2][2] && \
+           board[2][2] == board[3][3] && \
+           board[3][3] == board[4][4])
+        {
+            return board[0][0];
+        }
+        if(board[0][4] != ' ' && \
+           board[0][4] == board[1][3] && \
+           board[1][3] == board[2][2] && \
+           board[2][2] == board[3][1] && \
+           board[3][1] == board[4][0])
+        {
+            return board[0][4];
+        }
+        for(auto i = 0; i < row; ++i)
+        {
+            for(auto j = 0; j < col; ++j)
+            {
+                if(board[i][j] == ' ')
+                {
+                    return 'N';
+                }
+            }
+        }
     }
 
     ~Room()

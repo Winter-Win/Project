@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <stdlib.h>
 #include <rpc_client.hpp>
 #include <chrono>
 #include <fstream>
@@ -115,6 +116,7 @@ int CheckReady(uint32_t &id, const string &ip, int &port)
 bool Match(uint32_t &id, const string &ip, int port)
 {
     PushMatchPool(id, ip, port);
+    int count = 20;
     while(1)
     {
         int result = CheckReady(id, ip, port);
@@ -125,13 +127,24 @@ bool Match(uint32_t &id, const string &ip, int port)
         }
         else if(result == 1)
         {
+            cout << "匹配失败！" << endl;
             return false;
         }
         else
         {
+            printf("匹配中 ........ %2d\r", count--);
+            fflush(stdout);
+            if(count < 0)
+            {
+                cout << endl;
+                cout << "匹配超时！" << endl;
+                //remove client
+
+            }
             sleep(1);
         }
     }
+    return false;
 }
 
 int GetBoard(uint32_t &room_id, const string &ip, int &port, string &board)
@@ -194,11 +207,34 @@ char GetMyPiece(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
 
 void ShowBoard(string &board)
 {
-    for(auto i = 0; i < board.size(); ++i)
+    cout << "    ";
+    for(auto i = 1; i <= 5; ++i)
     {
-        cout << board[i] << '|';
+        cout << i << "   ";
     }
     cout << endl;
+    for(auto i = 0; i <= 5; ++i)
+    {
+        cout << "----";
+    }
+    cout << endl;
+
+    int size = board.size();
+    int basic_size = 5;
+    for(auto i = 0; i < size/basic_size; ++i)
+    {
+        cout << i+1 << " |";
+        for(auto j = 0; j < basic_size; ++j)
+        {
+            cout << " " << board[i*basic_size + j] << " |";
+        }
+        cout << endl;
+        for(auto i = 0; i <= 5; ++i)
+        {
+            cout << "----";
+        }
+        cout << endl;
+    }
 }
 
 bool IsMyTurn(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
@@ -220,19 +256,49 @@ bool IsMyTurn(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
     }
 }
 
-bool PosIsRight(int x, int y)
+bool PosIsRight(string &board, int x, int y)
 {
-    return false;
+    int pos = (x-1)*5 + (y-1);
+    return board[pos] == ' ' ? true : false;
 }
 
-void Step(uint32_t &id, int x, int y)
+int Step(uint32_t &room_id, uint32_t &id, int x, int y, const string &ip, int &port)
 {
-
+	try
+    {
+		rpc_client client(ip, port);
+    	bool r = client.connect();
+    	if (!r)
+        {
+		    cout << "connect timeout" << endl;
+		    return 3;
+    	}
+        client.call<void>("RpcStep",room_id, id, x-1, y-1);
+        return 0;
+    }
+    catch (const std::exception& e)
+    {
+		std::cout << e.what() << std::endl;
+    }
 }
 
-char Judge(uint32_t id)
+char Judge(uint32_t &room_id, uint32_t &id, const string &ip, int port)
 {
-    return 'N';
+	try
+    {
+		rpc_client client(ip, port);
+    	bool r = client.connect();
+    	if (!r)
+        {
+		    cout << "connect timeout" << endl;
+		    return 3;
+    	}
+        return client.call<char>("RpcJudge",room_id, id);
+    }
+    catch (const std::exception& e)
+    {
+		std::cout << e.what() << std::endl;
+    }
 }
 
 void PlayGame(uint32_t &id, const string &ip, int &port)
@@ -247,10 +313,16 @@ void PlayGame(uint32_t &id, const string &ip, int &port)
     cout << "piece: " << piece << endl;
     while(1)
     {
+        system("clear");
         GetBoard(room_id, ip, port, board);
         ShowBoard(board);
-        if(!IsMyTurn(room_id, id, ip, port))
+        if((result = Judge(room_id, id, ip, port)) != 'N')
         {
+            break;
+        }
+        if(!IsMyTurn(room_id, id, ip, port) )
+        {
+            cout << "对方正在思考，请稍等..." << endl;
             sleep(1);
             continue;
         }
@@ -258,14 +330,14 @@ void PlayGame(uint32_t &id, const string &ip, int &port)
         cin >> x >> y;
         if(x >= 1 && x <= 5 && y >= 1 && y <= 5)
         {
-            if(!PosIsRight(x, y))
+            if(!PosIsRight(board, x, y))
             {
                 cout << "你输入的位置已经被占用，请重新输入！" << endl;
             }
             else
             {
-                Step(id, x, y);
-                result = Judge(id);
+                Step(room_id, id, x, y, ip, port);
+                result = Judge(room_id, id, ip, port);
                 if(result != 'N')
                 {
                     break;
@@ -276,20 +348,14 @@ void PlayGame(uint32_t &id, const string &ip, int &port)
         {
             cout << "你输入的位置有误，请重新输入！" << endl;
         }
-
-        switch(result)
-        {
-            case 'X':
-                break;
-            case 'O':
-                break;
-            case 'E':
-                cout << "平局，恭喜..." << endl;
-                break;
-            default:
-                break;
-        }
     }
+
+    if(result == 'E')
+        cout << "平局，都挺好！" << endl;
+    else if(result == piece)
+        cout << "你赢了，恭喜！" << endl;
+    else
+        cout << "你输了，再来一局吧！" << endl;
 }
 
 void Game(uint32_t &id, const string &ip, int &port)

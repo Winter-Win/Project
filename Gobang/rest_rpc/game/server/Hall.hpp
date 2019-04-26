@@ -201,6 +201,16 @@ public:
         return rm.IsMyTurn(room_id, id);
     }
 
+    void Step(uint32_t &room_id, uint32_t &id, int x, int y)
+    {
+        return rm.Step(room_id, id, x, y);
+    }
+
+    char Judge(uint32_t &room_id, uint32_t &id)
+    {
+        return rm.Judge(room_id, id);
+    }
+
     void InitHall()
     {
         pthread_mutex_init(&match_lock, NULL);
