@@ -34,7 +34,7 @@ uint32_t Register(const string &ip, const int &port, string &name, string &passw
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 3;
+		    return 2;
     	}
         id = client.call<uint32_t>("RpcRegister", name, passwd);
     }
@@ -84,9 +84,28 @@ bool PushMatchPool(uint32_t &id, const string &ip, int &port)
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 3;
+		    return 4;
     	}
         return client.call<bool>("RpcMatchAndWait", id);
+    }
+    catch (const std::exception& e)
+    {
+		std::cout << e.what() << std::endl;
+    }
+}
+
+bool PopMatchPool(uint32_t &id, const string &ip, int &port)
+{
+	try
+    {
+		rpc_client client(ip, port);
+    	bool r = client.connect();
+    	if (!r)
+        {
+		    cout << "connect timeout" << endl;
+		    return 5;
+    	}
+        return client.call<bool>("RpcPopMatchPool", id);
     }
     catch (const std::exception& e)
     {
@@ -103,7 +122,7 @@ int CheckReady(uint32_t &id, const string &ip, int &port)
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 3;
+		    return 6;
     	}
         return client.call<int>("RpcPlayerReady", id);
     }
@@ -120,7 +139,7 @@ bool Match(uint32_t &id, const string &ip, int port)
     while(1)
     {
         int result = CheckReady(id, ip, port);
-        cout << "check: " << result << endl;
+        //cout << "check: " << result << endl;
         if(result == 3)
         {
             return true;
@@ -128,6 +147,8 @@ bool Match(uint32_t &id, const string &ip, int port)
         else if(result == 1)
         {
             cout << "匹配失败！" << endl;
+
+            //PopMatchPool(id, ip, port);
             return false;
         }
         else
@@ -139,7 +160,8 @@ bool Match(uint32_t &id, const string &ip, int port)
                 cout << endl;
                 cout << "匹配超时！" << endl;
                 //remove client
-
+                
+                break;
             }
             sleep(1);
         }
@@ -156,7 +178,7 @@ int GetBoard(uint32_t &room_id, const string &ip, int &port, string &board)
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 3;
+		    return 7;
     	}
         board =  client.call<string>("RpcBoard", room_id);
     }
@@ -175,7 +197,7 @@ uint32_t GetMyRoomId(uint32_t &id, const string &ip, int &port)
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 3;
+		    return 8;
     	}
         return client.call<uint32_t>("RpcPlayerRoomId", id);
     }
@@ -195,7 +217,7 @@ char GetMyPiece(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 3;
+		    return 9;
     	}
         return client.call<char>("RpcPlayerPiece",room_id, id);
     }
@@ -246,7 +268,7 @@ bool IsMyTurn(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 3;
+		    return 10;
     	}
         return client.call<bool>("RpcIsMyTurn",room_id, id);
     }
@@ -271,7 +293,7 @@ int Step(uint32_t &room_id, uint32_t &id, int x, int y, const string &ip, int &p
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 3;
+		    return 11;
     	}
         client.call<void>("RpcStep",room_id, id, x-1, y-1);
         return 0;
@@ -291,7 +313,7 @@ char Judge(uint32_t &room_id, uint32_t &id, const string &ip, int port)
     	if (!r)
         {
 		    cout << "connect timeout" << endl;
-		    return 3;
+		    return 12;
     	}
         return client.call<char>("RpcJudge",room_id, id);
     }
@@ -303,11 +325,16 @@ char Judge(uint32_t &room_id, uint32_t &id, const string &ip, int port)
 
 void PlayGame(uint32_t &id, const string &ip, int &port)
 {
-    cout << "匹配成功，请开始游戏..." << endl;
+    //cout << "匹配成功，请开始游戏..." << endl;
     int x, y;
     char result = 'N';
     string board;
     uint32_t room_id = GetMyRoomId(id, ip, port);
+    cout << "client room_id: " << room_id << endl;
+    if(room_id < 1024)
+    {
+        return;
+    }
     cout << "room_id: " << room_id << endl;
     char piece = GetMyPiece(room_id, id, ip, port);
     cout << "piece: " << piece << endl;

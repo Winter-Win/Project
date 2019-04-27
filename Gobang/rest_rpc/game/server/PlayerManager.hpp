@@ -81,6 +81,11 @@ public:
         player_set[id].Matching();
     }
 
+    void SetOnline(uint32_t &id)
+    {
+        player_set[id].Online();
+    }
+
 //    bool PlayerWait(uint32_t &id)
 //    {
 //        if(ETIMEDOUT == player_set[id].Wait())
@@ -95,7 +100,7 @@ public:
 
     uint32_t GetPlayerRoomId(uint32_t &id)
     {
-        player_set[id].Room();
+        return player_set[id].Room();
     }
 
     int GetRate(uint32_t &id)

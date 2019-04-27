@@ -36,6 +36,11 @@ public:
         match_num++;
     }
 
+    void DecMatchNum()
+    {
+        match_num--;
+    }
+
     void ResetMatchNum()
     {
         match_num = 0;
@@ -115,7 +120,27 @@ public:
         //return pm.PlayerWait(id); //进行等待
     }
 
-    void MatchPoolClear() //清空匹配池
+    bool PopIdMatchPool(uint32_t &id) //匹配失败，把自己从匹配池里拿走
+    {
+        LockMatchPool();
+        //MatchPoolClear(id);
+        int rate = pm.GetRate(id);
+        auto &v = match_pool[rate];
+        for(auto it = v.begin(); it != v.end(); it++)
+        {
+            if(*it == id)
+            {
+                v.erase(it);
+                break;
+            }
+        }
+        DecMatchNum();
+        UnlockMatchPool();
+        pm.SetOnline(id);
+        return true;
+    }
+
+    void MatchPoolClear(uint32_t &id) //清空匹配池
     {
         LOG(INFO, "匹配池被清空...");
         for(auto i = MATCH_LEVEL-1; i >= 0; i--)
@@ -128,6 +153,10 @@ public:
             vector<uint32_t>().swap(v);
         }
         ResetMatchNum();
+        if(id >= 10000)
+        {
+            pm.SetOnline(id);
+        }
     }
 
     int IsPlayerReady(uint32_t &id)
@@ -139,9 +168,9 @@ public:
     {
         pm.SetPlayStatus(one, two);
         uint32_t room_id = rm.CreateRoom(one, two);
+        cout << "room_id: " << room_id << endl;
         pm.SetPlayRoom(room_id, one, two);
         //pm.SignalPlayer(one, two);
-
     }
 
     static void *MatchService(void *arg)
@@ -151,6 +180,7 @@ public:
 
         while(1)
         {
+            uint32_t last = 0;
             hp->LockMatchPool();
 
             while(hp->MatchNum() < 2)
@@ -164,15 +194,23 @@ public:
             hp->GetAllMatchId(id_list);
 
             int num = id_list.size();
-            num &= (~1);
-            for(auto i = 0; i <= num; i+=2)
+            if(num & 1)
+            {
+                last = id_list[id_list.size()-1];
+                num  &= (-1);
+            }
+            else
+            {
+                last = 0;
+            }
+            for(auto i = 0; i < num; i+=2)
             {
                 uint32_t play_one = id_list[i];
                 uint32_t play_two = id_list[i+1];
                 hp->GamePrepare(play_one, play_two);
             }
 
-            hp->MatchPoolClear();
+            hp->MatchPoolClear(last);
 
             hp->UnlockMatchPool();
         }

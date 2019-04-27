@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <pthread.h>
 #include <string>
 
 #define BLACK 'X'
@@ -17,7 +18,7 @@ private:
     char board[SIZE][SIZE];
     char result; // X, O, E, N
 
-    pthread_mutex_t lock;
+//    pthread_mutex_t lock;
 
 public:
     Room()
@@ -31,8 +32,18 @@ public:
         memset(board, ' ', sizeof(board));
         result = 'N';
         current = one; //默认等于one
-        pthread_mutex_init(&lock, NULL);
+        //pthread_mutex_init(&lock, NULL);
     }
+
+   // void Lock()
+   // {
+   //     pthread_mutex_lock(&lock);
+   // }
+
+   // void Unlock()
+   // {
+   //     pthread_mutex_unlock(&lock);
+   // }
 
     void Board(string &_board)
     {
@@ -131,6 +142,6 @@ public:
 
     ~Room()
     {
-        pthread_mutex_destroy(&lock);
+        //pthread_mutex_destroy(&lock);
     }
 };

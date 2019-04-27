@@ -124,9 +124,14 @@ char RpcJudge(connection* conn, uint32_t room_id, uint32_t id)
     return GameHall.Judge(room_id, id);
 }
 
+bool RpcPopMatchPool(connection* conn, uint32_t id)
+{
+    return GameHall.PopIdMatchPool(id);
+}
+
 int main()
 {
-	rpc_server server(9000, 4);
+	rpc_server server(8888, 4);
     LOG(INFO, "Init Server .... done");
 
 	server.register_handler("RpcRegister", RpcRegister);
@@ -139,6 +144,8 @@ int main()
 	server.register_handler("RpcIsMyTurn", RpcIsMyTurn);
 	server.register_handler("RpcStep", RpcStep);
 	server.register_handler("RpcJudge", RpcJudge);
+	server.register_handler("RpcPopMatchPool", RpcPopMatchPool);
+
 
     LOG(INFO, "Register All Function .... done");
     LOG(INFO, "Server start .... done");
