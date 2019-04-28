@@ -30,7 +30,7 @@ ARCHITECTURE_ID	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	424;
 ARCHITECTURE_ID	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	427;"	d	file:
 ARCHITECTURE_ID	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	430;"	d	file:
 ARCHITECTURE_ID	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	434;"	d	file:
-BLACK	Room.hpp	6;"	d
+BLACK	Room.hpp	7;"	d
 Board	Room.hpp	/^    void Board(string &_board)$/;"	f	class:Room
 CMAKE_BINARY_DIR	build/Makefile	/^CMAKE_BINARY_DIR = \/home\/win\/code\/Linux\/Gobang\/rest_rpc\/game\/server\/build$/;"	m
 CMAKE_COMMAND	build/Makefile	/^CMAKE_COMMAND = \/usr\/local\/bin\/cmake$/;"	m
@@ -269,6 +269,7 @@ CreateRoom	RoomManager.hpp	/^    uint32_t CreateRoom(uint32_t &one, uint32_t &tw
 DEC	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	453;"	d	file:
 DEC	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	438;"	d	file:
 DEFAULT_ID	PlayerManager.hpp	12;"	d
+DecMatchNum	Hall.hpp	/^    void DecMatchNum()$/;"	f	class:Hall
 EQUALS	build/Makefile	/^EQUALS = =$/;"	m
 FATAL	Log.hpp	9;"	d
 GamePrepare	Hall.hpp	/^    void GamePrepare(uint32_t &one, uint32_t &two)$/;"	f	class:Hall
@@ -298,12 +299,13 @@ Judge	Hall.hpp	/^    char Judge(uint32_t &room_id, uint32_t &id)$/;"	f	class:Hal
 Judge	Room.hpp	/^    char Judge()$/;"	f	class:Room
 Judge	RoomManager.hpp	/^    char Judge(uint32_t &room_id, uint32_t &id)$/;"	f	class:RoomManager
 LOG	Log.hpp	20;"	d
+Lock	RoomManager.hpp	/^    void Lock()$/;"	f	class:RoomManager
 LockMatchPool	Hall.hpp	/^    void LockMatchPool()$/;"	f	class:Hall
 Login	Hall.hpp	/^    uint32_t Login(uint32_t &id, string &passwd) \/\/登录$/;"	f	class:Hall
 MATCHING	Player.hpp	/^    MATCHING,$/;"	e	enum:__anon1
 MATCH_LEVEL	Hall.hpp	10;"	d
 MatchNum	Hall.hpp	/^    int MatchNum()$/;"	f	class:Hall
-MatchPoolClear	Hall.hpp	/^    void MatchPoolClear() \/\/清空匹配池$/;"	f	class:Hall
+MatchPoolClear	Hall.hpp	/^    void MatchPoolClear(uint32_t &id) \/\/清空匹配池$/;"	f	class:Hall
 MatchService	Hall.hpp	/^    static void *MatchService(void *arg)$/;"	f	class:Hall
 Matching	Player.hpp	/^    void Matching()$/;"	f	class:Player
 OFFLINE	Player.hpp	/^    OFFLINE = 0,$/;"	e	enum:__anon1
@@ -380,6 +382,7 @@ Player	Player.hpp	/^class Player$/;"	c
 PlayerManager	PlayerManager.hpp	/^    PlayerManager():assign_id(DEFAULT_ID)$/;"	f	class:PlayerManager
 PlayerManager	PlayerManager.hpp	/^class PlayerManager$/;"	c
 Playing	Player.hpp	/^    void Playing()$/;"	f	class:Player
+PopIdMatchPool	Hall.hpp	/^    bool PopIdMatchPool(uint32_t &id) \/\/匹配失败，把自己从匹配池里拿走$/;"	f	class:Hall
 PushIdInMatchPool	Hall.hpp	/^    bool PushIdInMatchPool(uint32_t &id)$/;"	f	class:Hall
 RM	build/Makefile	/^RM = \/usr\/local\/bin\/cmake -E remove -f$/;"	m
 ROOM_ID	RoomManager.hpp	8;"	d
@@ -401,7 +404,9 @@ RpcMatchAndWait	main.cpp	/^bool RpcMatchAndWait(connection* conn, uint32_t id)$/
 RpcPlayerPiece	main.cpp	/^char RpcPlayerPiece(connection* conn, uint32_t room_id, uint32_t id)$/;"	f
 RpcPlayerReady	main.cpp	/^int RpcPlayerReady(connection* conn, uint32_t id)$/;"	f
 RpcPlayerRoomId	main.cpp	/^uint32_t RpcPlayerRoomId(connection* conn, uint32_t id)$/;"	f
+RpcPopMatchPool	main.cpp	/^bool RpcPopMatchPool(connection* conn, uint32_t id)$/;"	f
 RpcRegister	main.cpp	/^uint32_t RpcRegister(connection* conn, string name, string passwd)$/;"	f
+RpcStep	main.cpp	/^void RpcStep(connection* conn, uint32_t room_id, uint32_t id, int x, int y)$/;"	f
 SHELL	build/Makefile	/^SHELL = \/bin\/sh$/;"	m
 SIMULATE_ID	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	163;"	d	file:
 SIMULATE_ID	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	178;"	d	file:
@@ -421,7 +426,7 @@ SIMULATE_VERSION_MINOR	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	38;
 SIMULATE_VERSION_MINOR	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	165;"	d	file:
 SIMULATE_VERSION_MINOR	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	180;"	d	file:
 SIMULATE_VERSION_MINOR	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	38;"	d	file:
-SIZE	Room.hpp	8;"	d
+SIZE	Room.hpp	9;"	d
 STRINGIFY	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	303;"	d	file:
 STRINGIFY	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	288;"	d	file:
 STRINGIFY_HELPER	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	302;"	d	file:
@@ -431,6 +436,7 @@ SearchPlayer	PlayerManager.hpp	/^    uint32_t SearchPlayer(uint32_t &id, string&
 ServiceWait	Hall.hpp	/^    void ServiceWait()$/;"	f	class:Hall
 ServiceWakeup	Hall.hpp	/^    void ServiceWakeup()$/;"	f	class:Hall
 SetMatching	PlayerManager.hpp	/^    void SetMatching(uint32_t &id)$/;"	f	class:PlayerManager
+SetOnline	PlayerManager.hpp	/^    void SetOnline(uint32_t &id)$/;"	f	class:PlayerManager
 SetPlayRoom	PlayerManager.hpp	/^    void SetPlayRoom(uint32_t &room_id, uint32_t &one, uint32_t &two)$/;"	f	class:PlayerManager
 SetPlayStatus	PlayerManager.hpp	/^    void SetPlayStatus(uint32_t &one, uint32_t &two)$/;"	f	class:PlayerManager
 SetRoom	Player.hpp	/^    void SetRoom(uint32_t &room_id_)$/;"	f	class:Player
@@ -438,11 +444,11 @@ Status	Player.hpp	/^    int Status()$/;"	f	class:Player
 Step	Hall.hpp	/^    void Step(uint32_t &room_id, uint32_t &id, int x, int y)$/;"	f	class:Hall
 Step	Room.hpp	/^    void Step(uint32_t &id, int &x, int &y)$/;"	f	class:Room
 Step	RoomManager.hpp	/^    void Step(uint32_t &room_id, uint32_t &id, int &x, int &y)$/;"	f	class:RoomManager
-Step	main.cpp	/^void Step(connection* conn, uint32_t room_id, uint32_t id, int x, int y)$/;"	f
 TIMEOUT	Player.hpp	7;"	d
+Unlock	RoomManager.hpp	/^    void Unlock()$/;"	f	class:RoomManager
 UnlockMatchPool	Hall.hpp	/^    void UnlockMatchPool()$/;"	f	class:Hall
 WARNING	Log.hpp	8;"	d
-WHITE	Room.hpp	7;"	d
+WHITE	Room.hpp	8;"	d
 assign_id	PlayerManager.hpp	/^    uint32_t assign_id;$/;"	m	class:PlayerManager
 assign_id	RoomManager.hpp	/^    uint32_t  assign_id;$/;"	m	class:RoomManager
 board	Room.hpp	/^    char board[SIZE][SIZE];$/;"	m	class:Room
@@ -467,7 +473,7 @@ info_simulate_version	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	/^ch
 info_simulate_version	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_simulate_version[] = {$/;"	v
 info_version	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	/^char const info_version[] = {$/;"	v
 info_version	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version[] = {$/;"	v
-lock	Room.hpp	/^    pthread_mutex_t lock;$/;"	m	class:Room
+lock	RoomManager.hpp	/^    pthread_mutex_t lock;$/;"	m	class:RoomManager
 log	Log.hpp	/^void log(int level, string message, string file, int line)$/;"	f
 lose	Player.hpp	/^    int lose;$/;"	m	class:Player
 main	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	/^int main(argc, argv) int argc; char *argv[];$/;"	f
