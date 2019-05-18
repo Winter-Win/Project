@@ -239,7 +239,7 @@ public:
         return rm.IsMyTurn(room_id, id);
     }
 
-    void Step(uint32_t &room_id, uint32_t &id, int x, int y)
+    void Step(uint32_t &room_id,uint32_t &id,int x, int y)
     {
         return rm.Step(room_id, id, x, y);
     }

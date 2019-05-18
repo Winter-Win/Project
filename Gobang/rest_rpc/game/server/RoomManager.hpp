@@ -64,7 +64,7 @@ public:
         return is_my_turn;
     }
 
-    void Step(uint32_t &room_id, uint32_t &id, int &x, int &y)
+    void Step(uint32_t &room_id, uint32_t &id, const int &x, const int &y)
     {
         Lock();
         room_set[room_id].Step(id, x, y);

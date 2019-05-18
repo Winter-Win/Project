@@ -296,7 +296,7 @@ IsMyTurn	Room.hpp	/^    bool IsMyTurn(uint32_t &id)$/;"	f	class:Room
 IsMyTurn	RoomManager.hpp	/^    bool IsMyTurn(uint32_t &room_id, uint32_t &id)$/;"	f	class:RoomManager
 IsPlayerReady	Hall.hpp	/^    int IsPlayerReady(uint32_t &id)$/;"	f	class:Hall
 Judge	Hall.hpp	/^    char Judge(uint32_t &room_id, uint32_t &id)$/;"	f	class:Hall
-Judge	Room.hpp	/^    char Judge()$/;"	f	class:Room
+Judge	Room.hpp	/^    char Judge(const int& x, const int& y)$/;"	f	class:Room
 Judge	RoomManager.hpp	/^    char Judge(uint32_t &room_id, uint32_t &id)$/;"	f	class:RoomManager
 LOG	Log.hpp	20;"	d
 Lock	RoomManager.hpp	/^    void Lock()$/;"	f	class:RoomManager
@@ -441,9 +441,9 @@ SetPlayRoom	PlayerManager.hpp	/^    void SetPlayRoom(uint32_t &room_id, uint32_t
 SetPlayStatus	PlayerManager.hpp	/^    void SetPlayStatus(uint32_t &one, uint32_t &two)$/;"	f	class:PlayerManager
 SetRoom	Player.hpp	/^    void SetRoom(uint32_t &room_id_)$/;"	f	class:Player
 Status	Player.hpp	/^    int Status()$/;"	f	class:Player
-Step	Hall.hpp	/^    void Step(uint32_t &room_id, uint32_t &id, int x, int y)$/;"	f	class:Hall
-Step	Room.hpp	/^    void Step(uint32_t &id, int &x, int &y)$/;"	f	class:Room
-Step	RoomManager.hpp	/^    void Step(uint32_t &room_id, uint32_t &id, int &x, int &y)$/;"	f	class:RoomManager
+Step	Hall.hpp	/^    void Step(uint32_t &room_id,uint32_t &id,int x, int y)$/;"	f	class:Hall
+Step	Room.hpp	/^    void Step(uint32_t &id, const int &x, const int &y)$/;"	f	class:Room
+Step	RoomManager.hpp	/^    void Step(uint32_t &room_id, uint32_t &id, const int &x, const int &y)$/;"	f	class:RoomManager
 TIMEOUT	Player.hpp	7;"	d
 Unlock	RoomManager.hpp	/^    void Unlock()$/;"	f	class:RoomManager
 UnlockMatchPool	Hall.hpp	/^    void UnlockMatchPool()$/;"	f	class:Hall
@@ -473,6 +473,7 @@ info_simulate_version	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	/^ch
 info_simulate_version	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_simulate_version[] = {$/;"	v
 info_version	build/CMakeFiles/3.9.2/CompilerIdC/CMakeCCompilerId.c	/^char const info_version[] = {$/;"	v
 info_version	build/CMakeFiles/3.9.2/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version[] = {$/;"	v
+is_win	Room.hpp	/^bool is_win(const int& x,const int& y)$/;"	f	class:Room
 lock	RoomManager.hpp	/^    pthread_mutex_t lock;$/;"	m	class:RoomManager
 log	Log.hpp	/^void log(int level, string message, string file, int line)$/;"	f
 lose	Player.hpp	/^    int lose;$/;"	m	class:Player

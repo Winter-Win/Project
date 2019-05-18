@@ -227,23 +227,58 @@ char GetMyPiece(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
     }
 }
 
-void ShowBoard(string &board)
+void ShowBoard(string &board) // 针对于棋盘大于10的
 {
+//    cout << "    ";
+//    for(auto i = 1; i <= 5; ++i)
+//    {
+//        cout << i << "   ";
+//    }
+//    cout << endl;
+//    for(auto i = 0; i <= 5; ++i)
+//    {
+//        cout << "----";
+//    }
+//    cout << endl;
+//
+//    int size = board.size();
+//    int basic_size = 5;
+//    for(auto i = 0; i < size/basic_size; ++i)
+//    {
+//        cout << i+1 << " |";
+//        for(auto j = 0; j < basic_size; ++j)
+//        {
+//            cout << " " << board[i*basic_size + j] << " |";
+//        }
+//        cout << endl;
+//        for(auto i = 0; i <= 5; ++i)
+//        {
+//            cout << "----";
+//        }
+//        cout << endl;
+//    }
+    
+
+    int size = board.size();
+    int basic_size = sqrt(size);
     cout << "    ";
-    for(auto i = 1; i <= 5; ++i)
+    for(auto i = 1; i <= basic_size; ++i)
     {
         cout << i << "   ";
     }
+    for(auto i = 10; i <= basic_size; ++i)
+    {
+        cout << i << "  ";
+    }
     cout << endl;
-    for(auto i = 0; i <= 5; ++i)
+    for(auto i = 0; i <= basic_size; ++i)
     {
         cout << "----";
     }
     cout << endl;
 
-    int size = board.size();
-    int basic_size = 5;
-    for(auto i = 0; i < size/basic_size; ++i)
+    for(auto i = 0; i < basic_size; ++i)
+    //for(auto i = 0; i < 9; ++i)
     {
         cout << i+1 << " |";
         for(auto j = 0; j < basic_size; ++j)
@@ -251,12 +286,27 @@ void ShowBoard(string &board)
             cout << " " << board[i*basic_size + j] << " |";
         }
         cout << endl;
-        for(auto i = 0; i <= 5; ++i)
+        for(auto i = 0; i <= basic_size; ++i)
         {
             cout << "----";
         }
         cout << endl;
     }
+
+    //for(auto i = 9; i < basic_size; ++i)
+    //{
+    //    cout << i+1 << "|";
+    //    for(auto j = 0; j < basic_size; ++j)
+    //    {
+    //        cout << " " << board[i*basic_size + j] << " |";
+    //    }
+    //    cout << endl;
+    //    for(auto i = 0; i <= basic_size; ++i)
+    //    {
+    //        cout << "----";
+    //    }
+    //    cout << endl;
+    //}
 }
 
 bool IsMyTurn(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
@@ -280,7 +330,9 @@ bool IsMyTurn(uint32_t &room_id, uint32_t &id, const string &ip, int &port)
 
 bool PosIsRight(string &board, int x, int y)
 {
-    int pos = (x-1)*5 + (y-1);
+    int size = board.size();
+    int basic_size = sqrt(size);
+    int pos = (x-1)*basic_size + (y-1);
     return board[pos] == ' ' ? true : false;
 }
 
@@ -355,7 +407,9 @@ void PlayGame(uint32_t &id, const string &ip, int &port)
         }
         cout << "请输入你的落子位置:>" ;
         cin >> x >> y;
-        if(x >= 1 && x <= 5 && y >= 1 && y <= 5)
+        int size = board.size();
+        int basic_size = sqrt(size);
+        if(x >= 1 && x <= basic_size && y >= 1 && y <= basic_size)
         {
             if(!PosIsRight(board, x, y))
             {
