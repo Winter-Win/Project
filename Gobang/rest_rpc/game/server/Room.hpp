@@ -73,7 +73,7 @@ public:
         {
             int pos = (id == one ? 0 : 1); //piece[pos]
             board[x][y] = piece[pos];
-            cout << "键入的坐标是 : " << x + 1 << " " << y + 1 << endl;
+            cout << board[x][y] << "键入的坐标是 : " << x + 1 << " " << y + 1 << endl;
             current = (id == one ? two : one);
             //result = Judge();
 
@@ -148,7 +148,7 @@ bool is_win(const int& x,const int& y)
         flag = 1;
 
     //主右下
-    for(i = x + 1, j = y + 1; i < SIZE && j < 3 && count ++ < 5 ; i++ , j++)
+    for(i = x + 1, j = y + 1; i < SIZE && j < SIZE && count ++ < 5 ; i++ , j++)
     {
         if(board[i][j] == cur)
             flag++;
@@ -209,7 +209,18 @@ bool is_win(const int& x,const int& y)
         if(is_win(x, y))
             return board[x][y];
 
-        return 'N';
+        for(auto i = 0; i < SIZE; ++i)
+        {
+            for(auto j = 0; j < SIZE; ++j)
+            {
+                if(board[i][j] == ' ')
+                {
+                    return 'N';
+                }
+            }
+        }
+
+        return 'E';
     }
 
 //    char Judge()
@@ -267,6 +278,7 @@ bool is_win(const int& x,const int& y)
 //                }
 //            }
 //        }
+//        return 'E';
 //    }
 
     ~Room()
